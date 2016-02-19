@@ -3,10 +3,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LanguageGeneral
 {
-    internal class Customer
+    public class Customer
     {
         public int Number { get; set; }
         public string Name { get; set; }
+
+        public string Description { get; protected set; }
+    }
+
+    public class MurderousCustomer :  Customer
+    {
+        public MurderousCustomer()
+            : base()
+        {
+            Description = "A nasty operation.";
+        }
     }
 
     [TestClass]
@@ -15,9 +26,10 @@ namespace LanguageGeneral
         [TestMethod]
         public void TestProperties()
         {            
-            Customer customer = new Customer();
+            Customer customer = new MurderousCustomer();
             customer.Number = 9;
             customer.Name = "Mrs Lovett's Pie Shop";
+            Assert.IsTrue(customer.Description == "A nasty operation.");
         }
     }
 }
