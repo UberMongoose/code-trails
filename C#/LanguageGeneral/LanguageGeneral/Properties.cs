@@ -5,8 +5,25 @@ namespace LanguageGeneral
 {
     public abstract class Customer
     {
+        int rating;
+
         public int Number { get; set; }
         public string Name { get; set; }
+        public int Rating
+        {
+            get { return rating; }
+            set
+            {
+                if (rating < 5)
+                    rating++;                
+            }
+        }
+
+        public Customer()
+        {
+            rating = 1;
+        }
+        
 
         public abstract string Description { get; protected set; }
     }
@@ -34,6 +51,11 @@ namespace LanguageGeneral
             Assert.IsTrue(customer.Description == "A nasty operation.");
 
             // Customer illegalCustomer = new Customer(); /* Abstract class, can't be instantiated. */
+
+            for (int i = 0; i < 10; i++)
+                customer.Rating++;
+
+            Assert.IsTrue(customer.Rating == 5);
         }
     }
 }
