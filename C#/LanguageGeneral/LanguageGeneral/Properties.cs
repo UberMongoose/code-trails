@@ -3,16 +3,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LanguageGeneral
 {
-    public class Customer
+    public abstract class Customer
     {
         public int Number { get; set; }
         public string Name { get; set; }
 
-        public string Description { get; protected set; }
+        public abstract string Description { get; protected set; }
     }
 
     public class MurderousCustomer :  Customer
     {
+        public override string Description { get; protected set; }
+
         public MurderousCustomer()
             : base()
         {
@@ -30,6 +32,8 @@ namespace LanguageGeneral
             customer.Number = 9;
             customer.Name = "Mrs Lovett's Pie Shop";
             Assert.IsTrue(customer.Description == "A nasty operation.");
+
+            // Customer illegalCustomer = new Customer(); /* Abstract class, can't be instantiated. */
         }
     }
 }
