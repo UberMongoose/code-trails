@@ -5,17 +5,17 @@ namespace LanguageGeneral
 {
     public abstract class Customer
     {
-        int rating;
+        protected int rating;
 
         public int Number { get; set; }
         public string Name { get; set; }
-        public int Rating
+        public virtual int Rating
         {
             get { return rating; }
             set
             {
                 if (rating < 5)
-                    rating++;                
+                    rating++;
             }
         }
 
@@ -23,18 +23,31 @@ namespace LanguageGeneral
         {
             rating = 1;
         }
-        
+
 
         public abstract string Description { get; protected set; }
     }
 
-    public class MurderousCustomer :  Customer
+    public class MurderousCustomer : Customer
     {
         public override string Description { get; protected set; }
+        public override int Rating
+        {
+            get
+            {
+                return base.Rating;
+            }
+
+            set
+            {
+                base.rating = 0;
+            }
+        }
 
         public MurderousCustomer()
             : base()
         {
+            base.Rating = 0;
             Description = "A nasty operation.";
         }
     }
@@ -44,7 +57,7 @@ namespace LanguageGeneral
     {
         [TestMethod]
         public void TestProperties()
-        {            
+        {
             Customer customer = new MurderousCustomer();
             customer.Number = 9;
             customer.Name = "Mrs Lovett's Pie Shop";
@@ -55,7 +68,7 @@ namespace LanguageGeneral
             for (int i = 0; i < 10; i++)
                 customer.Rating++;
 
-            Assert.IsTrue(customer.Rating == 5);
+            Assert.IsTrue(customer.Rating == 0);
         }
     }
 }
