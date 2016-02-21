@@ -15,7 +15,7 @@ namespace LanguageGeneral
             set
             {
                 if (rating < 5)
-                    rating++;
+                    rating = value;
             }
         }
 
