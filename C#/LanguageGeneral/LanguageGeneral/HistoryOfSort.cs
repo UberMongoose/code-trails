@@ -102,5 +102,23 @@ namespace LanguageGeneral
             products.Sort((x, y) => x.Name.CompareTo(y.Name));
             Assert.IsTrue(CheckNamesOrdered(products));
         }
+
+        [TestMethod]
+        public void CSharp3ExtensionSort()
+        {
+            List<Product> products = Product.GetSampleProducts();
+            List<Product> sorted = Product.GetSampleProducts();
+            sorted.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+            int i = 0;
+
+            foreach (Product product in products.OrderBy(p => p.Name))
+            {
+                Assert.IsTrue(product.Name == sorted[i].Name);
+                i++;                
+            }
+
+            Assert.IsFalse(CheckNamesOrdered(products));
+        }
     }
 }
