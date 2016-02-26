@@ -84,6 +84,15 @@ namespace LanguageGeneral
             products.Sort(new TypedProductNameComparer());
             Assert.IsTrue(CheckNamesOrdered(products));
         }
-        
+
+        [TestMethod]
+        public void CSharp2AnonymousMethodSort()
+        {
+            List<Product> products = Product.GetSampleProducts();
+            products.Sort(delegate (Product x, Product y) {
+                return x.Name.CompareTo(y.Name);
+            });
+            Assert.IsTrue(CheckNamesOrdered(products));
+        }
     }
 }
