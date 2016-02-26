@@ -94,5 +94,13 @@ namespace LanguageGeneral
             });
             Assert.IsTrue(CheckNamesOrdered(products));
         }
+
+        [TestMethod]
+        public void CSharp3LambdaSort()
+        {
+            List<Product> products = Product.GetSampleProducts();
+            products.Sort((x, y) => x.Name.CompareTo(y.Name));
+            Assert.IsTrue(CheckNamesOrdered(products));
+        }
     }
 }
