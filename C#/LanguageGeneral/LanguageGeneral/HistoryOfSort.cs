@@ -46,7 +46,7 @@ namespace LanguageGeneral
             return CheckNamesOrdered(list.Cast<Product>().ToList());
         }
 
-        private class ProductNameComparer : IComparer
+        class ProductNameComparer : IComparer
         {
             public int Compare(object x, object y)
             {
@@ -66,6 +66,24 @@ namespace LanguageGeneral
             ArrayList products = new ArrayList(Product.GetSampleProducts());
             products.Sort(new ProductNameComparer());
             Assert.IsTrue(CheckNamesOrdered(products));
-        }        
+        }
+
+        class TypedProductNameComparer : IComparer<Product>
+        {
+            public int Compare(Product x, Product y)
+            {
+                return x.Name.CompareTo(y.Name);
+            }
+        }
+        
+
+        [TestMethod]
+        public void CSharp2Lists()
+        {
+            List<Product> products = Product.GetSampleProducts();
+            products.Sort(new TypedProductNameComparer());
+            Assert.IsTrue(CheckNamesOrdered(products));
+        }
+        
     }
 }
